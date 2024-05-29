@@ -13,46 +13,26 @@
         }
     },
     "paths": {
-        "/api/books": {
-            "get": {
-                "tags": [
-                    "book"
-                ],
-                "summary": "Display a listing of the items",
-                "operationId": "index",
-                "responses": {
-                    "200": {
-                        "description": "successful",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    }
-                }
-            },
+        "/api/user/register": {
             "post": {
                 "tags": [
-                    "book"
+                    "User"
                 ],
-                "summary": "Store a newly created item",
-                "operationId": "store",
+                "summary": "Register new user & get token",
+                "operationId": "register",
                 "requestBody": {
                     "description": "Request body description",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Book"
+                                "$ref": "#/components/schemas/User"
                             },
                             "example": {
-                                "title": "Eating Clean",
-                                "author": "Inge Tumiwa-Bachrens",
-                                "publisher": "Kawan Pustaka",
-                                "publication_year": "2016",
-                                "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1482170055i/33511107.jpg",
-                                "description": "Menjadi sehat adalah impian semua orang. Makanan yang selama ini kita pikir sehat ternyata belum tentu 'sehat' bagi tubuh kita.",
-                                "price": 85000
+                                "name": "Peter Andrian Priestley",
+                                "email": "peterandrianpriestley@gmail.com",
+                                "password": "abc123",
+                                "password_confirmation": "abc123"
                             }
                         }
                     }
@@ -77,10 +57,165 @@
                 }
             }
         },
-        "/api/books/{id}": {
+        "/api/user/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Log in to existing user & get token",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Request body description",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "example": {
+                                "email": "peterandrianpriestley@gmail.com",
+                                "password": "abc123"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/logout": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Log out & destroy self token",
+                "operationId": "logout",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "User Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport_token_ready": [],
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/drone": {
             "get": {
                 "tags": [
-                    "book"
+                    "Drone"
+                ],
+                "summary": "Display a listing of the items",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Drone"
+                ],
+                "summary": "Store a newly created item",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Request body description",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Drone"
+                            },
+                            "example": {
+                                "id": 1,
+                                "drone_name": "DJI Mavic 3 Pro",
+                                "price": 33000000,
+                                "producer": "DJI",
+                                "production_year": "2023",
+                                "description": "DJI Mavic 3 Pro is a triple-lens flagship camera drone with multiple focal lengths. Mavic 3 Pro has a 4/3 CMOS Hasselblad camera and dual tele cameras."
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Invalid input",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "201": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "passport_token_ready": [],
+                        "passport": []
+                    }
+                ]
+            }
+        },
+        "/api/drone/{id}": {
+            "get": {
+                "tags": [
+                    "Drone"
                 ],
                 "summary": "Display the specified item",
                 "operationId": "show",
@@ -125,7 +260,7 @@
             },
             "put": {
                 "tags": [
-                    "book"
+                    "Drone"
                 ],
                 "summary": "Update the specified item",
                 "operationId": "update",
@@ -147,16 +282,15 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Book"
+                                "$ref": "#/components/schemas/Drone"
                             },
                             "example": {
-                                "title": "Eating Clean",
-                                "author": "Inge Tumiwa-Bachrens",
-                                "publisher": "Kawan Pustaka",
-                                "publication_year": "2016",
-                                "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1482170055i/33511107.jpg",
-                                "description": "Menjadi sehat adalah impian semua orang. Makanan yang selama ini kita pikir sehat ternyata belum tentu 'sehat' bagi tubuh kita.",
-                                "price": 85000
+                                "id": 1,
+                                "drone_name": "DJI Mavic 3 Pro",
+                                "price": 33000000,
+                                "producer": "DJI",
+                                "production_year": "2023",
+                                "description": "DJI Mavic 3 Pro is a triple-lens flagship camera drone with multiple focal lengths. Mavic 3 Pro has a 4/3 CMOS Hasselblad camera and dual tele cameras."
                             }
                         }
                     }
@@ -186,11 +320,17 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "passport_token_ready": [],
+                        "passport": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
-                    "book"
+                    "Drone"
                 ],
                 "summary": "Remove the specified item",
                 "operationId": "destroy",
@@ -231,21 +371,62 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "passport_token_ready": [],
+                        "passport": []
+                    }
+                ]
             }
         }
     },
     "components": {
         "schemas": {
-            "Book": {
-                "title": "Book model",
-                "description": "Book model",
+            "Drone": {
+                "title": "Drone model",
+                "description": "Drone model",
                 "required": [
                     "title",
                     "author"
                 ],
                 "xml": {
-                    "name": "Book"
+                    "name": "Drone"
+                }
+            },
+            "User": {
+                "title": "User model",
+                "description": "User model",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "xml": {
+                    "name": "User"
+                }
+            }
+        },
+        "securitySchemes": {
+            "passport_token_ready": {
+                "type": "http",
+                "scheme": "bearer",
+                "description": "Enter token in format without \"Bearer \"",
+                "name": "Authorization",
+                "in": "header"
+            },
+            "passport": {
+                "type": "oauth2",
+                "description": "Laravel passport oauth2 security",
+                "in": "header",
+                "scheme": "https",
+                "flows": {
+                    "password": {
+                        "authorizationUrl": "http://localhost/oauth/authorize",
+                        "tokenUrl": "http://localhost/oauth/token",
+                        "refreshUrl": "http://localhost/token/refresh",
+                        "scopes": []
+                    }
                 }
             }
         }
