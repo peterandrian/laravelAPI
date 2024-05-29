@@ -184,7 +184,7 @@ use Validator;
             if ($validator->fails()) {
                 throw new HttpException (400, $validator->messages()->first());
             }
-             $jewels->fill($request->all())->save();
+             $drone->fill($request->all())->save();
              return response()->json(array('message' => 'Updated successfully'), 200);
   
          } catch(\Exception $exception) {
