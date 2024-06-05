@@ -181,7 +181,8 @@
                                 "price": 33000000,
                                 "producer": "DJI",
                                 "production_year": "2023",
-                                "description": "DJI Mavic 3 Pro is a triple-lens flagship camera drone with multiple focal lengths. Mavic 3 Pro has a 4/3 CMOS Hasselblad camera and dual tele cameras."
+                                "description": "DJI Mavic 3 Pro is a triple-lens flagship camera drone with multiple focal lengths. Mavic 3 Pro has a 4/3 CMOS Hasselblad camera and dual tele cameras.",
+                                "cover": "https://sinarphoto.com/prd/l/dji-mavic-3-pro-drone-with-dji-rc-01.jpg"
                             }
                         }
                     }
@@ -404,6 +405,58 @@
                 ],
                 "xml": {
                     "name": "User"
+                }
+            }
+        },
+        "parameters": {
+            "_page": {
+                "name": "_page",
+                "in": "query",
+                "description": "current page",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": 1
+                }
+            },
+            "_limit": {
+                "name": "_limit",
+                "in": "query",
+                "description": "max item in a page",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "format": "int64",
+                    "example": 10
+                }
+            },
+            "_search": {
+                "name": "_search",
+                "in": "query",
+                "description": "word to search",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "_producer": {
+                "name": "_producer",
+                "in": "query",
+                "description": "search by producer like DJI, etc",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "_sort_by": {
+                "name": "_sort_by",
+                "in": "query",
+                "description": "word to search",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "example": "latest"
                 }
             }
         },
