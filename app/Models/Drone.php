@@ -37,6 +37,7 @@ class Drone extends Model
         'producer',
         'production_year',
         'price',
+        'description',
         'created_at',
         'created_by',
         'updated_at',

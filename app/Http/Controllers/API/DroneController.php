@@ -275,8 +275,7 @@ use Validator;
   
          try {
             $validator = Validator::make($request->all(), [
-                'drone_name'  => 'required|unique:drones',
-                'producer'  => 'required|max:100',
+                'drone_name'  => 'required',
             ]);
             if ($validator->fails()) {
                 throw new HttpException (400, $validator->messages()->first());
